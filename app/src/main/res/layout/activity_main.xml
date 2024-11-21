@@ -10,57 +10,55 @@
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="685dp"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="44dp"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
         app:flow_horizontalBias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Formulario de Ingreso de mascotas"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/txtCodigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ingrese el codigo del chip"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ingrese el Nombre de la mascota"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp" />
 
         <Spinner
             android:id="@+id/spMascota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="Mascota"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/txtDueno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ingrese al Nombre del dueño"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/txtDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ingresel la direccion del Dueño"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -77,7 +75,7 @@
         <ListView
             android:id="@+id/lista"
             android:layout_width="match_parent"
-            android:layout_height="199dp"/>
+            android:layout_height="199dp" />
 
     </LinearLayout>
 

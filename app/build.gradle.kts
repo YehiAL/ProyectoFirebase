@@ -36,9 +36,9 @@ android {
 dependencies {
 
     implementation("com.google.firebase:firebase-firestore:23.0.0")
-    implementation("com.google.firebase:firebase-analytics")
+    //implementation("com.google.firebase:firebase-analytics")
     implementation("com.android.support:multidex:1.0.3")
-    implementation ("com.google.firebase:firebase-bom:32.6.0") //falta el plataform
+    implementation ("com.google.firebase:firebase-bom:32.6.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

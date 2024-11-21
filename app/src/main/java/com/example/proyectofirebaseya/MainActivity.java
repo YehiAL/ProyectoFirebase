@@ -3,10 +3,12 @@ package com.example.proyectofirebaseya;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +19,15 @@ import android.widget.Toast;
 
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -63,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
         String direccion = txtDireccion.getText().toString();
         String tipoMascota = spMascota.getSelectedItem().toString();
 
+        //Mapa con los datos a enviar
         Map<String, Object> mascota = new HashMap<>();
         mascota.put("codigo",codigo);
         mascota.put("nombre",nombre);
         mascota.put("dueno",dueno);
         mascota.put("direccion",direccion);
         mascota.put("tipoMascota",tipoMascota);
-
+        //Enviar datos a Firestore
         db.collection("mascotas")
                 .document(codigo)
                 .set(mascota)
@@ -82,10 +91,38 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void cargarLista(View view){
+    public void cargarLista(View view){
         CargarListaFirestore();
     }
 
-    private void CargarListaFirestore() {
+    public void CargarListaFirestore() {
+        //obtener instancia
+       FirebaseFirestore db = FirebaseFirestore.getInstance();
+       //Consulta a la coleccion mascotas
+       db.collection("mascotas")
+               .get()
+               .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                       if (task.isSuccessful()){
+                           //lista para almacenar las cadenas de informacion
+                           List<String> listaMascotas = new ArrayList<>();
+
+                           //Recorre los datos obtenidos ordenandolos en lista
+                           for (QueryDocumentSnapshot document : task.getResult()){
+                               String linea = "||" + document.getString("codigo") + "||"+
+                                       document.getString("nombre") + "||"+
+                                       document.getString("dueno") + "||"+
+                                       document.getString("direccion");
+                               listaMascotas.add(linea);
+                           }
+                           //Crear un arrayAdapter para la listaMascotas y pasarlo al layout
+                           ArrayAdapter<String> adaptador = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,listaMascotas);
+                           lista.setAdapter(adaptador);
+                       }else{
+                           Log.e("tag","Error al obtener datos de Firestore",task.getException());
+                       }
+                   }
+               });
     }
 }
